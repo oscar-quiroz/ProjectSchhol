@@ -1,22 +1,31 @@
 drop table if exists entregas_tarea;
-drop table if exists grupos_estudiantes;
+drop table if exists tareas;
 drop table if exists grupos_materias;
 drop table if exists materias;
 drop table if exists personas;
-drop table if exists tareas;
-
-create table entregas_tarea(
-   id_tarea             int(5) not null,
-   id_persona           int(5) not null,
-   calificacion         decimal,
-   direccion_archivo    varchar(200),
-   descripcion          varchar(400),
-   primary key (id_tarea, id_persona)
-);
+drop table if exists grupos_estudiantes;
 
 create table grupos_estudiantes(
-   id_grupo_estudiantes int(4) not null,
+   id_grupo_estudiantes int(4) not null auto_increment,
    constraint gre_pk_idge primary key (id_grupo_estudiantes)
+);
+
+create table personas(
+   id_persona           int(5) not null auto_increment,
+   id_grupo_estudiantes int(4),
+   tipo_persona         char(1) not null,
+   nombre_persona       varchar(50) not null,
+   apellido_persona     varchar(50) not null,
+   usuario_persona      varchar(100) invisible,
+   contrasena_persona   varchar(64) invisible ,
+   constraint per_pk_idp primary key (id_persona)
+);
+
+create table materias(
+   id_materia           int(3) not null auto_increment,
+   id_persona           int(5) not null,
+   nombre_materia       varchar(60) not null,
+   constraint mat_pk_idm primary key (id_materia)
 );
 
 create table grupos_materias(
@@ -25,30 +34,21 @@ create table grupos_materias(
    constraint grm_pk_idgm primary key (id_grupo_estudiantes, id_materia)
 );
 
-create table materias(
-   id_materia           int(3) not null,
-   id_persona           int(5) not null,
-   nombre_materia       varchar(60) not null,
-   constraint mat_pk_idm primary key (id_materia)
-);
-
-create table personas(
-   id_persona           int(5) not null,
-   id_grupo_estudiantes int(4),
-   tipo_persona         char(1) not null,
-   nombre_persona       varchar(50) not null,
-   apellido_persona     varchar(50) not null,
-   usuario_persona      varchar(100),
-   contrasena_persona   varchar(64),
-   constraint per_pk_idp primary key (id_persona)
-);
-
 create table tareas(
-   id_tarea             int(5) not null,
+   id_tarea             int(5) not null auto_increment,
    id_materia           int(3) not null,
    nombre_tarea         varchar(30) not null,
    descripcion_tarea    varchar(140) not null,
    constraint tar_pk_idt primary key (id_tarea)
+);
+
+create table entregas_tarea(
+   id_tarea             int(5) not null,
+   id_persona           int(5) not null,
+   calificacion         decimal,
+   direccion_archivo    varchar(200),
+   descripcion          varchar(400),
+   primary key (id_tarea, id_persona)
 );
 
 alter table entregas_tarea add constraint eta_fk_idp foreign key (id_persona)
