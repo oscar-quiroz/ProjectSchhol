@@ -16,8 +16,8 @@ class Person extends Database {
 		$query->execute(['id'=>$this->id]);
 
 		foreach ($query as $currentPerson) {
-            $this->name = $currentPerson['nombres_persona'];
-            $this->lname = $currentPerson['apellidos_persona'];
+            $this->name = $currentPerson['nombre_persona'];
+            $this->lname = $currentPerson['apellido_persona'];
             $this->type = $currentPerson['tipo_persona'];
             $this->groupId = $currentPerson['id_grupo_estudiantes'];
         }
@@ -33,6 +33,10 @@ class Person extends Database {
 
 	public function getLastName(){
 		return $this->lname;
+	}
+
+	public function getFullName(){
+		return $this->name.' '.$this->lname;
 	}
 
 	public function getType(){

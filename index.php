@@ -1,10 +1,22 @@
 <?php
 require 'includes/classes.php';
+
+$userSession = new UserSession();
 $errorMessage="";
-if(User::exists($_POST['username'],md5($_POST['password'])))
+
+if(isset($_SESSION['user'])){
 	header('location: /dashboard');
-else
-	$errorMessage="Usuario o contraseña incorrecta";
+}else{
+	if(isset($_POST['username'])&&$_POST['password']){
+		$id=User::exists($_POST['username'],md5($_POST['password']));
+
+		if($id){
+			$_SESSION['user'] = $id;
+			header('location: /dashboard');
+		}else
+			$errorMessage="Usuario o contraseña incorrecta";
+	}	
+}
 ?>
 <!DOCTYPE html>
 <html>

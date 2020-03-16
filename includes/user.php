@@ -1,12 +1,5 @@
 <?php
 class User extends Person{
-	protected $username;
-	protected $password;
-
-	function __construct(){
-		parent::__construct();
-	}
-
 	public static function exists($username,$password){
 		$database= new Database();
 
@@ -22,5 +15,16 @@ class User extends Person{
         else
             return false;
 	}
+}
+
+class UserSession{
+    public function __construct(){
+        session_start();
+    }
+
+    public function closeSession(){
+        session_unset();
+        session_destroy();
+    }
 }
 ?>
