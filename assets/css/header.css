@@ -1,0 +1,65 @@
+header{
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 55px;
+    background: #eee;
+}
+
+#logo-app{
+    float: left;
+	height: 45px;
+    margin-right: 10px;
+    margin-left:10px;
+    margin-top: 5px;
+}
+
+.menu-item{
+    float: left;
+}
+
+.main-menu-item {
+    border-radius: 3px;
+    border-style: none;
+    background: inherit;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.main-menu-item p{
+    float: left;
+    display: none;
+}
+
+.main-menu-item img{
+    float: left;
+	width: 45px;
+	height: 45px;
+}
+
+.main-menu-item:hover{
+    background: #ddd;
+    cursor: pointer;
+}
+
+#menu-button{
+    display: initial;
+}
+
+.app-area{
+    display: none;
+    max-width: 80%;
+}
+
+.user-area{
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media only screen and (min-width: 840px){
+    .main-menu-item p{
+        display: flex;
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 15px;
+    }
+}
