@@ -5,6 +5,7 @@ class Person extends Database {
 	protected $lname;
 	protected $type;
 	protected $groupId;
+	protected $groupName;
 
 	function __construct($f=0){
 		parent::__construct();
@@ -20,6 +21,14 @@ class Person extends Database {
             $this->lname = $currentPerson['apellido_persona'];
             $this->type = $currentPerson['tipo_persona'];
             $this->groupId = $currentPerson['id_grupo_estudiantes'];
+        }
+
+        if($this->groupId){
+        	$query = $this->connect()->prepare('SELECT nombre_grupo 
+			FROM grupos_estudiantes 
+			WHERE id_grupo_estudiantes =:id');
+			$query->execute(['id'=>$this->groupId]);
+			$this->groupName=$query->fetch()['nombre_grupo'];
         }
 	}
 
@@ -45,6 +54,10 @@ class Person extends Database {
 
 	public function getGroupId(){
 		return $this->groupId;
+	}
+
+	public function getGroupName(){
+		return $this->groupName;
 	}
 }
 ?>
